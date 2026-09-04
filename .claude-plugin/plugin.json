@@ -28,6 +28,8 @@
     "./skills/engineering/tdd",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
+    "./skills/engineering/to-routed-tickets",
+    "./skills/engineering/spec-complexity-routing",
     "./skills/engineering/wayfinder",
     "./skills/engineering/implement",
     "./skills/engineering/prototype",

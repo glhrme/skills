@@ -1,0 +1,3 @@
+interface:
+  display_name: "Spec Complexity Routing"
+  short_description: "Route complexity, model, and reasoning effort"

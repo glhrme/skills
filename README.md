@@ -203,6 +203,8 @@ Skills I use daily for code work.
 
 **Model-invoked**
 
+- **[to-routed-tickets](./skills/engineering/to-routed-tickets/SKILL.md)**: Produce a spec and tracer-bullet tickets with complexity, implementation model, and reasoning effort recorded in every ticket.
+- **[spec-complexity-routing](./skills/engineering/spec-complexity-routing/SKILL.md)**: Score a spec or ticket, then recommend its implementation model and reasoning effort.
 - **[prototype](./skills/engineering/prototype/SKILL.md)**: Build a throwaway prototype to answer a design question, either a single shareable HTML file for state/logic questions, or several radically different UI variations toggleable from one route.
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)**: Disciplined diagnosis loop for hard bugs and performance regressions: build a feedback loop that goes red on this bug → minimise → hypothesise → instrument → fix → regression-test.
 - **[research](./skills/engineering/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.

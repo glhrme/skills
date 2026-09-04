@@ -20,6 +20,8 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 
 Model- or user-reachable (rich trigger phrasing so the model can reach for them).
 
+- **[to-routed-tickets](./to-routed-tickets/SKILL.md)**: Produce a spec and tracer-bullet tickets with complexity, implementation model, and reasoning effort recorded in every ticket.
+- **[spec-complexity-routing](./spec-complexity-routing/SKILL.md)**: Score a spec or ticket, then recommend its implementation model and reasoning effort.
 - **[prototype](./prototype/SKILL.md)**: Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic, or several toggleable UI variations.
 
 - **[diagnosing-bugs](./diagnosing-bugs/SKILL.md)**: Disciplined diagnosis loop for hard bugs and performance regressions: build a feedback loop that goes red on this bug → minimise → hypothesise → instrument → fix → regression-test.
