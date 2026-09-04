@@ -1,0 +1,3 @@
+interface:
+  display_name: "Spec Complexity Routing"
+  short_description: "Score complexity (Fibonacci) and recommend a model"
