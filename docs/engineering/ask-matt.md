@@ -11,6 +11,7 @@ You invoke this by typing `/ask-matt`; the agent won't reach for it on its own.
 | Your situation | What the router gives back |
 | --- | --- |
 | An idea, and no idea where to start | The head of the main flow, and whether the build is small enough to skip the spec |
+| A discussed feature that needs a spec, tickets, and implementation model recommendations | `/to-routed-tickets`, the combined planning flow with complexity and a recommended model in every ticket |
 | Bugs and requests arriving from other people | The [triage](https://aihero.dev/skills-triage) on-ramp, and why [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) you generated yourself don't belong on it |
 | Two skills that look interchangeable | The line between them, and it is usually one concrete test rather than a matter of taste. [grill-me](https://aihero.dev/skills-grill-me) or [grill-with-docs](https://aihero.dev/skills-grill-with-docs) turns on whether you are in a working directory; [grill-with-docs](https://aihero.dev/skills-grill-with-docs) or [wayfinder](https://aihero.dev/skills-wayfinder) turns on whether the effort fits one session |
 | A long session and a decision about the [context](https://www.aihero.dev/ai-coding-dictionary/context) | The ordered tree over the five options at a phase boundary |
@@ -20,13 +21,15 @@ You invoke this by typing `/ask-matt`; the agent won't reach for it on its own.
 
 The router names skills; it does not install them. Everything it points at has to be installed for the recommendation to be actionable, and it only knows the promoted skills in this repo.
 
-The tracker-dependent routes (triage, `to-spec`, `to-tickets`, `implement`) assume [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) has already configured an issue tracker in the repo. The router will happily recommend them before that has happened.
+The tracker-dependent routes (triage, `to-routed-tickets`, `to-spec`, `to-tickets`, `implement`) assume [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) has already configured an issue tracker in the repo. The combined route also needs `spec-complexity-routing` and its matrix available. The router will happily recommend these routes before that has happened.
 
 ## Flows, not skills
 
+For a feature that needs a spec and tickets, type `/grill-with-docs` → `/to-routed-tickets` → `/implement`. Inside `to-routed-tickets`, the sequence is `to-spec` → `spec-complexity-routing` → `to-tickets`, with each ticket draft assessed before publication. You enter this flow with the discussion; it creates the spec for you.
+
 The word the skill gives you to think with is **flow**: a path *through* the skills, not a single one. Naming your situation places you on a flow at a step, which is a different answer from "here is the skill that matches your keywords". Four kinds of route exist, and the skill itself carries them in full:
 
-- **The main flow**, idea to ship. Grill, spec, tickets, implement, review, with two branches inside it: a prototype detour when a question needs runnable code to settle, and the spec-and-tickets split, which only earns its cost when the build spans more than one session.
+- **The main flow**, idea to ship. Grill, then `to-routed-tickets` for the spec, complexity assessment, and tickets, followed by implementation and review. A prototype detour settles questions that need runnable code; work small enough for one session can go straight from grilling to implementation.
 - **On-ramps**, for a situation that generates work and then merges onto the main flow: incoming bug reports, something broken, or an effort too foggy and too large to hold in one session.
 - **Standalones**, off every flow, reached for on their own terms: the prototype, the questionnaire, the merge conflict you are already sitting in.
 - **A vocabulary layer underneath**, the two references the other skills pull in when the words rather than the process are the problem.
@@ -47,9 +50,21 @@ Two of those are routinely got wrong, which is why the router carries the order 
 
 ## Common questions
 
+**Which command gives me a spec and tickets with model recommendations?**
+
+Use `/to-routed-tickets` after the idea has been discussed. It composes `to-spec`, `spec-complexity-routing`, and `to-tickets`, keeping the test-seam and ticket-breakdown checks. Every ticket gets its own complexity assessment, recommended implementation model, and fallback before publication. Band-21 work is split and assessed again. The individual skills remain available when you only need one stage.
+
+**Do I run to-spec before to-routed-tickets?**
+
+No. Invoke `/to-routed-tickets` with the discussion. It runs `to-spec` first, then routing, then ticket creation. Calling `to-spec` separately is only needed when you want that stage on its own.
+
+**Does that also choose the code-review model?**
+
+No. The routing recommendation covers implementation. It neither chooses a review model nor launches the recommended model; implementation and review happen after planning.
+
 **Isn't there just a list of the skills in the right order?**
 
-People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → code-review` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `/grilling` and `/resolving-merge-conflicts` both shipped long before the router named them.
+The main spec-and-tickets route is `grill-with-docs → to-routed-tickets → implement`, with review inside implementation. The branches still matter: a small change can skip the planning flow, and a question that needs runnable evidence can take a prototype detour. `ask-matt` chooses the route for the situation you describe.
 
 **It told me half the skills aren't installed.**
 
@@ -78,6 +93,7 @@ Check the changelog for a rename before assuming it is gone. `writing-great-skil
 ## It's working if
 
 - It ends by naming what to type and stops there, instead of starting the work itself.
+- For a spec-and-tickets request with model recommendations, it names `/to-routed-tickets` and explains that complexity is assessed separately for each ticket.
 - The route it gives back mentions where to clear or compact context and where you are expected to review, not just a list of skill names.
 - Where two skills are close, it says which one and why the other is wrong for you.
 - Any claim it makes about another skill's behaviour shows up in the trace as it reading that skill's `SKILL.md`.
